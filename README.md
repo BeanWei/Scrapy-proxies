@@ -11,7 +11,7 @@
 ![Scrapy-proxies.png](http://upload-images.jianshu.io/upload_images/4610828-edbea71e6ff36157.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 # 部署
-需要先改一下配置文件hq-proxies.yml，把Redis的地址密码之类的填上，改完后放到/etc/hq-proxies.yml下。
+需要先改一下配置文件hq-proxies.yml
 在配置文件中也可以调整相应的阈值和免费代理源和测试页面。
 
 
