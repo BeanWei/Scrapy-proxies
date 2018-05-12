@@ -1,5 +1,5 @@
-redis==2.10.5
-requests==2.13.0
-Scrapy==1.3.0
-Twisted==16.6.0
-PyYAML==3.12
+redis
+requests
+Scrapy
+Twisted
+PyYAML

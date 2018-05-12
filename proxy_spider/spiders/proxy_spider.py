@@ -215,6 +215,30 @@ class ProxyFetchSpider(Spider):
             new_meta = response.meta.copy()
             new_meta['page'] = page
             yield Request(url=new_url, meta=new_meta, callback=self.parse_kxdaili)
+
+    def parse_jiangxianli(self, response):
+        '''
+        @url = "http://ip.jiangxianli.com/api/proxy_ips?page=" + str(page)
+        '''
+        logger.info('开始爬取jiangxianli')
+        if 'proxy' in response.meta:
+            logger.info('=>使用代理%s' % response.meta['proxy'])
+        page = 1
+        api = 'http://ip.jiangxianli.com/api/proxy_ips?page={}'.format(page)
+        result = response.body_as_unicode()
+        for r in result['data']['data']:
+            proxy = 'http://%s:%s' % (r['ip'], r['port'])
+            if not self.redis_db.sismember(self.PROXY_SET, proxy):
+                vaurl, vastart = random.choice(list(self.validator_pool))
+                yield Request(url=vaurl, meta={'proxy': proxy, 'startstring': vastart}, callback=self.checkin, dont_filter=True)
+            else:
+                logger.info('该代理已收录..')         
+        if page <= result['data']['last_page']:
+            page += 1
+            new_meta = response.meta.copy()
+            new_meta['page'] = page
+            yield Request(url=api, meta=new_meta, callback=self.parse_jiangxianli)
+            
     
     def closed(self, reason):
         logger.info('代理池更新完成，有效代理数: %s' % self.redis_db.scard(self.PROXY_SET))

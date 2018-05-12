@@ -36,6 +36,8 @@ PROXY_VENDORS:
   url: http://www.ip181.com/
 - parser: parse_66ip
   url: http://www.66ip.cn/nmtq.php?getnum=100&isp=0&anonymoustype=3&start=&ports=&export=&ipaddress=&area=1&proxytype=0&api=66ip
+- parser: parse_jiangxianli
+  url: http://ip.jiangxianli.com/api/proxy_ips?page=1  
   
 # 可以配置多个验证页，会随机抽取一个用于验证
 PROXY_VALIDATORS:
