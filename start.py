@@ -19,7 +19,7 @@ if __name__ == '__main__':
         LOCAL_CONFIG = yaml.load(f)
     fetchcmd = 'scrapy crawl proxy_fetch'
     # checkcmd = 'scrapy crawl proxy_check > /dev/null 2>&1'
-    checkcmd = 'scrapy crawl proxy_check > wget 2>NUL 1>NUL'
+    checkcmd = 'scrapy crawl proxy_check'
 else:
     print('测试模式！')
     LOCAL_CONFIG_YAML = './hq-proxies.test.yml'
@@ -54,7 +54,7 @@ LOOP_DELAY = LOCAL_CONFIG['LOOP_DELAY']
 PROTECT_SEC = LOCAL_CONFIG['PROTECT_SEC']
 REFRESH_SEC = LOCAL_CONFIG['REFRESH_SEC']
 
-def startFetch(reason=None, fetchcmd='scrapy crawl proxy_fetch > wget 2>NUL 1>NUL'):
+def startFetch(reason=None, fetchcmd='scrapy crawl proxy_fetch'):
     logger.info(reason)
     redis_db.setex(PROXY_PROTECT, PROTECT_SEC, True)
     redis_db.setex(PROXY_REFRESH, REFRESH_SEC, True)

@@ -225,7 +225,7 @@ class ProxyFetchSpider(Spider):
             logger.info('=>使用代理%s' % response.meta['proxy'])
         page = 1
         api = 'http://ip.jiangxianli.com/api/proxy_ips?page={}'.format(page)
-        result = response.body_as_unicode()
+        result = json.loads(response.body)
         for r in result['data']['data']:
             proxy = 'http://%s:%s' % (r['ip'], r['port'])
             if not self.redis_db.sismember(self.PROXY_SET, proxy):
